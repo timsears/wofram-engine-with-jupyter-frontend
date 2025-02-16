@@ -21,7 +21,6 @@
 
         devShell = pkgs.mkShell {
           buildInputs = [
-            # pkgs.wolfram-engine
             pkgs.gcc
             pkgs.jupyter
           ];
