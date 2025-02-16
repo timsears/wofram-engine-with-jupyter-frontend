@@ -14,7 +14,6 @@
         packages.default = pkgs.buildEnv {
           name = "wolfram-jupyter-env";
           paths = [
-            pkgs.wolfram-engine
             pkgs.gcc
             pkgs.jupyter
           ];
@@ -22,7 +21,7 @@
 
         devShell = pkgs.mkShell {
           buildInputs = [
-            pkgs.wolfram-engine
+            # pkgs.wolfram-engine
             pkgs.gcc
             pkgs.jupyter
           ];
