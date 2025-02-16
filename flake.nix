@@ -23,6 +23,7 @@
           buildInputs = [
             pkgs.gcc
             pkgs.jupyter
+            pkgs.wolfram-engine
           ];
           shellHook = ''
             export LD_LIBRARY_PATH="${pkgs.gcc.lib}/lib:$LD_LIBRARY_PATH"
