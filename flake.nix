@@ -12,10 +12,10 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         packages.default = pkgs.buildEnv {
-          name = "wolfram-jupyter-env";
+          name = "wolfram-frontends-env";
           paths = [
-            pkgs.gcc
             pkgs.jupyter
+            pkgs.libuv
           ];
         };
 
