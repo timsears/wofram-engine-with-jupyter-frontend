@@ -19,3 +19,17 @@
             pkgs.jupyter
           ];
         };
+
+        devShell = pkgs.mkShell {
+          buildInputs = [
+            pkgs.wolfram-engine
+            pkgs.gcc
+            pkgs.jupyter
+          ];
+          shellHook = ''
+            export LD_LIBRARY_PATH="${pkgs.gcc.lib}/lib:$LD_LIBRARY_PATH"
+          '';
+        };
+      }
+    );
+}
