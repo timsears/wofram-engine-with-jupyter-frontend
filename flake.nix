@@ -26,7 +26,7 @@
         '';
       in
       {
-        devShell = pkgs.mkShell {
+        default = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
             ${cloneRepos}/bin/clone-repos
