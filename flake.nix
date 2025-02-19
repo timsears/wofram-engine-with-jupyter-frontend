@@ -26,7 +26,7 @@
         '';
       in
       {
-        defaultPackage.${system} = pkgs.mkShell {
+        default = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
             ${cloneRepos}/bin/clone-repos
@@ -35,5 +35,8 @@
             echo "Installation done"
           '';
         };
+
+        defaultPackage = forAllSystems (system: self.packages.${system}.default);
+
       });
 }
