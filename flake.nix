@@ -27,10 +27,8 @@
           name = "wolfram-engine-frontends";
           src = ./.;
           buildInputs = [ cloneRepos ];
-          
-          buildPhase = ''
-            ${cloneRepos}/bin/clone-repos
-          '';
+
+          # no buildPhase
 
           installPhase = ''
             mkdir -p $out
