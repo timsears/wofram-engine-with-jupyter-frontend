@@ -39,7 +39,7 @@
         };
       in
       {
-        packages.${system}.default = shellish;
+        #packages.${system}.default = shellish;
         devShell = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
