@@ -38,8 +38,9 @@
           '';
         };
       in
-      {
+       rec {
         #packages.${system}.default = shellish;
+        defaultPackage = shellish;
         devShell = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
