@@ -36,7 +36,7 @@
         };
       in
        rec {
-        defaultPackage = shellish;
+        defaultPackage = cloneRepos;
         devShell = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
