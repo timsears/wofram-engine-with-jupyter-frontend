@@ -27,9 +27,8 @@
           name = "wolfram-engine-frontends";
           src = ./.;
           buildInputs = [ cloneRepos ];
-
-          # no buildPhase
-
+          
+          # Remove the buildPhase that runs clone-repos
           installPhase = ''
             mkdir -p $out
             cp -r . $out/
