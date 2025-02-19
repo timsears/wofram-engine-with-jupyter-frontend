@@ -26,7 +26,7 @@
         shellish = pkgs.stdenv.mkDerivation {
           name = "wolfram-engine-frontends";
           src = ./.;
-          buildInputs = [ cloneRepos ];
+          # buildInputs = [ cloneRepos ];
           
           # Remove the buildPhase that runs clone-repos
           installPhase = ''
