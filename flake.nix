@@ -24,9 +24,8 @@
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git
           fi
         '';
-      in
-      {
-        setup = pkgs.mkShell {
+
+       setup = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
             ${cloneRepos}/bin/clone-repos
@@ -35,8 +34,9 @@
             echo "Installation done"
           '';
         };
-
+      in
+      {
         packages.${system}.default = setup;
-
+        devShell = setup;
       });
 }
