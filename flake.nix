@@ -26,7 +26,7 @@
         '';
       in
       {
-        shell = pkgs.mkShell {
+        defaultPackage = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
             ${cloneRepos}/bin/clone-repos
@@ -34,8 +34,6 @@
             ./WolframLanguageForJupyter/configure-jupyter.wls add
             echo "Installation done"
           '';
-        packages.${system}.default = shell;
-        devShell = shell;
         };
       });
 }
