@@ -34,7 +34,7 @@
             ./WolframLanguageForJupyter/configure-jupyter.wls add
             echo "Installation done"
           '';
-        defaultPackage = shell;
+        packages.$system.default = shell;
         devShell = shell;
         };
       });
