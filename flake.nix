@@ -14,18 +14,33 @@
         cloneRepos = pkgs.writeScriptBin "clone-repos" ''
           #!${pkgs.stdenv.shell}
           
-          # Clone first repository
           if [ ! -d "wolfram-js-frontend" ]; then
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/JerryI/wolfram-js-frontend.git
           fi
           
-          # Clone second repository
           if [ ! -d "WolframLanguageForJupyter" ]; then
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git
           fi
         '';
 
-       setup = pkgs.mkShell {
+        setup = pkgs.stdenv.mkDerivation {
+          name = "wolfram-engine-frontends";
+          src = ./.;
+          buildInputs = [ cloneRepos ];
+          
+          buildPhase = ''
+            ${cloneRepos}/bin/clone-repos
+          '';
+
+          installPhase = ''
+            mkdir -p $out
+            cp -r . $out/
+          '';
+        };
+      in
+      {
+        packages.${system}.default = setup;
+        devShell = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
             ${cloneRepos}/bin/clone-repos
@@ -34,9 +49,6 @@
             echo "Installation done"
           '';
         };
-      in
-      {
-        packages.${system}.default = setup;
-        devShell = setup;
       });
 }
+
