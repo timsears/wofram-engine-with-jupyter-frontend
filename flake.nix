@@ -29,7 +29,7 @@
           buildInputs = [ cloneRepos ];
           
           buildPhase = ''
-            # ${cloneRepos}/bin/clone-repos
+            ${cloneRepos}/bin/clone-repos
           '';
 
           installPhase = ''
