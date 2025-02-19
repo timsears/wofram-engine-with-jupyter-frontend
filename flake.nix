@@ -23,7 +23,7 @@
           fi
         '';
 
-        setup = pkgs.stdenv.mkDerivation {
+        shellish = pkgs.stdenv.mkDerivation {
           name = "wolfram-engine-frontends";
           src = ./.;
           buildInputs = [ cloneRepos ];
@@ -39,7 +39,7 @@
         };
       in
       {
-        packages.${system}.default = setup;
+        packages.${system}.default = shellish;
         devShell = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
