@@ -1,8 +1,8 @@
 {
-  description = "Wolfram Engine with Jupyter Frontend";
+  description = "Clone GitHub repositories to current directory";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -10,25 +10,30 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        packages.default = pkgs.buildEnv {
-          name = "wolfram-frontends-env";
-          paths = [
-            pkgs.jupyter
-            pkgs.libuv
-          ];
-        };
-
+        
+        cloneRepos = pkgs.writeScriptBin "clone-repos" ''
+          #!${pkgs.stdenv.shell}
+          
+          # Clone first repository
+          if [ ! -d "wolfram-js-frontend" ]; then
+            ${pkgs.git}/bin/git clone --depth 1 https://github.com/JerryI/wolfram-js-frontend.git
+          fi
+          
+          # Clone second repository
+          if [ ! -d "WolframLanguageForJupyter" ]; then
+            ${pkgs.git}/bin/git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git
+          fi
+        '';
+      in
+      {
         devShell = pkgs.mkShell {
-          buildInputs = [
-            pkgs.gcc
-            pkgs.jupyter
-            pkgs.wolfram-engine
-          ];
+          buildInputs = [ cloneRepos ];
           shellHook = ''
-            export LD_LIBRARY_PATH="${pkgs.gcc.lib}/lib:$LD_LIBRARY_PATH"
+            ${cloneRepos}/bin/clone-repos
+            echo "Cloned 2 repos. Installing ..."
+            ./WolframLanguageForJupyter/configure-jupyter.wls add
+            echo "Installation done"
           '';
         };
-      }
-    );
+      });
 }
