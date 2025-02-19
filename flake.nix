@@ -26,7 +26,7 @@
         '';
       in
       {
-        defaultPackage = pkgs.mkShell {
+        defaultPackage.${system} = pkgs.mkShell {
           buildInputs = [ cloneRepos ];
           shellHook = ''
             ${cloneRepos}/bin/clone-repos
