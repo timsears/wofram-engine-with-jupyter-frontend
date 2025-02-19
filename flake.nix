@@ -1,4 +1,4 @@
-vS{
+{
   description = "Clone GitHub repositories to current directory";
 
   inputs = {
