@@ -27,6 +27,6 @@
       in
         {
           defaultPackage = cloneRepos;
-        };
-      });
+        }
+      );
 }
