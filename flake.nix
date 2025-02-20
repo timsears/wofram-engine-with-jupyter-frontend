@@ -11,40 +11,22 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         
-        cloneRepos = pkgs.writeScriptBin "clone-repos" ''
+        cloneRepos = pkgs.writeScriptBin "install-frontends" ''
           #!${pkgs.stdenv.shell}
           
-          if [ ! -d "wolfram-js-frontend" ]; then
+          # if [ ! -d "wolfram-js-frontend" ]; then
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/JerryI/wolfram-js-frontend.git
-          fi
+          # fi
           
-          if [ ! -d "WolframLanguageForJupyter" ]; then
+          # if [ ! -d "WolframLanguageForJupyter" ]; then
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git
-          fi
-        '';
-
-        shellish = pkgs.stdenv.mkDerivation {
-          name = "wolfram-engine-frontends";
-          src = ./.;
-          # buildInputs = [ cloneRepos ];
-          
-          # Remove the buildPhase that runs clone-repos
-          installPhase = ''
-            mkdir -p $out
-            cp -r . $out/
-          '';
-        };
-      in
-       rec {
-        defaultPackage = cloneRepos;
-        devShell = pkgs.mkShell {
-          buildInputs = [ cloneRepos ];
-          shellHook = ''
-            ${cloneRepos}/bin/clone-repos
-            echo "Cloned 2 repos. Installing ..."
+            echo "configuring jupyter kernel ..."
             ./WolframLanguageForJupyter/configure-jupyter.wls add
-            echo "Installation done"
-          '';
+          # fi
+        '';
+      in
+        {
+          defaultPackage = cloneRepos;
         };
       });
 }
