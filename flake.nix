@@ -14,15 +14,18 @@
         cloneRepos = pkgs.writeScriptBin "install-frontends" ''
           #!${pkgs.stdenv.shell}
           
-          # if [ ! -d "wolfram-js-frontend" ]; then
-            ${pkgs.git}/bin/git clone --depth 1 https://github.com/JerryI/wolfram-js-frontend.git
-          # fi
+          if [ -d "wolfram-js-frontend" ]; then
+            rm -rf wolfram-js-frontend
+          fi
+          ${pkgs.git}/bin/git clone --depth 1 https://github.com/JerryI/wolfram-js-frontend.git
           
-          # if [ ! -d "WolframLanguageForJupyter" ]; then
+          if [ ! -d "WolframLanguageForJupyter" ]; then
+            rm -rf WolframLanguageForJupyter
+          fi
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git
             echo "configuring jupyter kernel ..."
             ./WolframLanguageForJupyter/configure-jupyter.wls add
-          # fi
+         
         '';
       in
         {
