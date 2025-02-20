@@ -19,7 +19,7 @@
           fi
           ${pkgs.git}/bin/git clone --depth 1 https://github.com/JerryI/wolfram-js-frontend.git
           
-          if [ ! -d "WolframLanguageForJupyter" ]; then
+          if [ -d "WolframLanguageForJupyter" ]; then
             rm -rf WolframLanguageForJupyter
           fi
             ${pkgs.git}/bin/git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git
